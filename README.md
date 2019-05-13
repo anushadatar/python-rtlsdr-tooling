@@ -7,3 +7,5 @@ As part of that, I created a few frameworks:
 - [An AM Radio Demodulation Framework](https://anushadatar.github.io/python-rtlsdr-tooling/am/)
 - [An FM Radio Demodulation Framework](https://anushadatar.github.io/python-rtlsdr-tooling/fm/)
 - [Tools to simplfy RTL-SDR use](https://anushadatar.github.io/python-rtlsdr-tooling/tools/)
+
+I also created this [slide deck](https://docs.google.com/presentation/d/1PAnlowIm0P5bED8s-5rlFvly6B6Ds8P8pEnqFNPpVa0/edit?usp=sharing) to present this project at the 2019 Olin Exposition.
