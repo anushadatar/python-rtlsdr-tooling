@@ -6,7 +6,6 @@ import numpy as np
 import struct
 import sys
 import time
-import wave
 
 # Center frequency. TODO Make this auto-update.
 CENTER_FREQUENCY = 1030000
