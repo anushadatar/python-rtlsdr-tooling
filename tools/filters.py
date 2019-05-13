@@ -2,7 +2,8 @@
 
 """
 Some quick filters.
-TODO Add to docstrings
+TODO Add docstrings
+TODO Add novel filters, make sure they're not just wrappers for scipy
 """
 from scipy import signal 
 
