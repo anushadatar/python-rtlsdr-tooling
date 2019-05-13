@@ -43,27 +43,25 @@ def run_demod(leftover_data, deviation):
     else:
         remaining_data = data[-2:]
 
-    # Work with the actual data!
+    # Work with the actual data!    
     
-
-    """
     num_samples = len(data) // 2
     # Get regularized phase angle.
     raw_iq = numpy.frombuffer(data, dtype=numpy.uint8)
+    print(raw_iq)
     iq_offset = raw_iq - 127.5
     iq_shifted = iq_offset / 128.0
     iq_complex = iq_shifted.view(complex)
     phase_angle = numpy.angle(iq_complex)
-    # Get and wrap differences.
-    diff = (numpy.ediff1d(phase_angle) + numpy.pi) % (2 * numpy.pi) - numpy.pi
-    # Convert to baseband. 
-    raw_output = numpy.clip(numpy.multiply(diff, deviation), -0.999, +0.999)
-    """
+    
+    i = numpy.real(iq_complex) * numpy.sin(phase_angle)
+    q = numpy.real(iq_complex) * numpy.cos(phase_angle)
+    amplitude = numpy.real(numpy.sqrt(i**2 + q**2))
+    scaled_amplitude = numpy.clip(numpy.multiply(amplitude, deviation), -0.99, +0.999)    
     # Turn into something we can play in sox.
-    output_data = numpy.multiply(raw_output, 32767)
+    output_data = numpy.multiply(scaled_amplitude, 32767)
     output_stream = output_data.astype(int)
 
-    # TODO Add LPF    
 
     # Output as raw 16-bit, 1 channel audio
     output_bits = struct.pack(('<%dh' % len(output_stream)), *output_stream)
