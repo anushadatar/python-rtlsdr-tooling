@@ -1,17 +1,16 @@
 #!/usr/bin/env python3
 
 """
-Basic FM Demodulator using I/Q data. 
-Turns I/Q data into a useful buffer, converts to baseband, filters, 
+Basic AM Demodulator using I/Q data. 
+Turns I/Q data into a useful buffer, demodulates, 
 goes to audio.
 
 """
-import numpy
+import numpy as np
 import math
 import struct
 import sys
 
-# Data collection parameters. Make sure script matches these. 
 # Max rate of deviation, in Hertz.
 MAX_DEV = 200000 
 # Input rate, also in Hertz.
@@ -24,7 +23,7 @@ previous runs and export each segment as playable audio.
     leftover_data : Byte buffer of previous data to use as needed.
     deviation : Max deviation ratio, scaled by input rate.
 """
-def run_demod(leftover_data, deviation):
+def run_demod(leftover_data, deviation, carrier_table):
     # Pull data from standard input.
     data = sys.stdin.buffer.read(INPUT_RATE)
 
@@ -54,10 +53,7 @@ def run_demod(leftover_data, deviation):
     iq_complex = iq_shifted.view(complex)
     phase_angle = numpy.angle(iq_complex)
     
-    i = numpy.real(iq_complex) * numpy.sin(phase_angle)
-    q = numpy.real(iq_complex) * numpy.cos(phase_angle)
-    amplitude = numpy.real(numpy.sqrt(i**2 + q**2))
-    scaled_amplitude = numpy.clip(numpy.multiply(amplitude, deviation), -0.99, +0.999)    
+    # TODO scale samples to amplitude
     # Turn into something we can play in sox.
     output_data = numpy.multiply(scaled_amplitude, 32767)
     output_stream = output_data.astype(int)
