@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+"""
+TODO add documentation!
+TODO Sometimes this works and sometimes the disk just beeps loudly. Track down the 
+TODO Add significantly more filtering + input control so that this can be used in not hypercontrolled environments. 
+"""
+
 
 import cmath
 import math
@@ -6,7 +12,6 @@ import numpy as np
 import struct
 import sys
 import time
-import wave
 
 # Center frequency. TODO Make this auto-update.
 CENTER_FREQUENCY = 1030000
